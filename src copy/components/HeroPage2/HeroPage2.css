@@ -1,0 +1,53 @@
+.HeroPage2-container {
+  width: 100%;
+  height: 15vh;
+  /* background-color: brown; */
+  display: flex;
+  justify-content: center;
+
+}
+
+.HeroPage2-container-wrapper {
+  width: 92.5%;
+  height: 100%;
+  /* background-color: blue; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.HeroPage2-container-wrapper-h1 {
+  font-size: 35px;
+}
+.HeroPage2-container-wrapper-btn {
+  width: 9%;
+  height: 36%;
+  font-size: 17px;
+  border-radius: 10px;
+  background-color: #20b2aa;
+  color: #f6fffe;
+  border: none;
+  cursor: pointer;
+}
+.all-heroPage2 {
+  width: 100%;
+  height: 40vh;
+  /* background-color: aquamarine; */
+  display: flex;
+  justify-content: center;
+    background-color: #f6fffe;
+}
+.all-heroPage2-wrapper {
+  width: 92.5%;
+  height: 100%;
+  /* background-color: yellow; */
+   background-color: white;
+
+}
+.heroPage2{
+    width:100%;
+    height:90%;
+    /* background-color: orange; */
+    display: flex;
+    /* justify-content:space-between; */
+    align-items: center;
+}

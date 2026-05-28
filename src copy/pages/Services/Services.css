@@ -1,0 +1,173 @@
+.mainService-conatainer {
+  width: 100%;
+  background-color: var(--primary-color-tint-lighter-bg);
+  font-family: Arial, Helvetica, sans-serif;
+  .wrapSection-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    .service-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 4rem;
+      padding-bottom: 3rem;
+      padding-top: 6rem;
+      justify-content: center;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: large;
+      color: var(--secondary-color);
+      text-align: center;
+      gap: 8px;
+      span {
+        color: var(--primary-color);
+        font-weight: bold;
+        font-size: larger;
+      }
+      p {
+        font-size: larger;
+        line-height: 1.8rem;
+      }
+    }
+
+    .itemPricing-container {
+      width: 100%;
+      margin-top: 5rem;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--secondary-color);
+      h2 {
+        text-align: center;
+        margin-bottom: 3rem;
+        font-size: 2rem;
+      }
+      .pricing-container {
+        width: 90%;
+        margin: 2rem auto;
+        border: 1px solid var(--grey-color-tint-80);
+        border-radius: 0.5rem;
+      }
+      .pricing-table {
+        width: 100%;
+        th {
+          padding: 2rem;
+          padding-left: 1.5rem;
+          border-bottom: 1px solid var(--grey-color-tint-80);
+          text-align: left;
+          font-size: 20px;
+        }
+        td {
+          padding: 1.5rem;
+          border-bottom: 1px solid var(--grey-color-tint-80);
+        }
+
+        .leftBorder {
+          width: 50%;
+          padding-left: 4.5rem;
+          padding-right: 5rem;
+          text-align: center;
+          border-left: 1px solid var(--grey-color-tint-80);
+        }
+        .leftBorderDiv {
+          text-align: center;
+          border-left: 1px solid var(--grey-color-tint-80);
+          display: flex;
+          align-items: center;
+          justify-content: end;
+          gap: 14.5rem;
+          padding: 7px;
+          height: 4.5rem;
+          /* border-bottom: 1px solid var(--grey-color-tint-80); */
+          .read-more {
+            background: #1abc9c;
+            color: #fff;
+            border: none;
+            width: 15%;
+            height: 70%;
+            /* padding: 10px; */
+            border-radius: 0.3rem;
+            cursor: pointer;
+            transition: 0.3s ease;
+          }
+          .read-more:hover {
+            background: #16a085;
+          }
+        }
+      }
+
+      .category-row td {
+        .minTitle {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 23px;
+        }
+      }
+    }
+  }
+}
+
+.second-form {
+  width: 90%;
+  background: var(--background-color);
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--secondary-color);
+  border-radius: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+  padding-bottom: 5rem;
+  padding-top: 5rem;
+  margin: 5rem auto;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  .second-form-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.7rem;
+    .title {
+      font-size: 17px;
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+    .Questions {
+      font-size: 30px;
+      width: 100%;
+    }
+    .laundry-Service {
+      font-size: 18px;
+      text-align: center;
+    }
+  }
+  .secondFormInput-container {
+    padding: 1.4rem;
+    gap: 3rem;
+    display: flex;
+    flex-direction: column;
+    .insideText-container {
+      border-radius: 0.9rem;
+      border: 1px solid var(--grey-color-tint-80);
+      display: flex;
+      padding: 2.7rem;
+      justify-content: space-between;
+      align-items: center;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--secondary-color);
+      .plus {
+        font-size: 15px;
+        color: var(--secondary-color);
+        border: none;
+        background: none;
+      }
+      .num {
+        font-size: 20px;
+        color: var(--secondary-color);
+      }
+      .midText {
+        color: var(--primary-color);
+        font-size: 18px;
+      }
+    }
+  }
+}
