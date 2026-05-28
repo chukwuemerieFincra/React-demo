@@ -1,0 +1,41 @@
+
+
+.card3-container {
+  width: 50%;
+  height: 100%;
+  display: flex;
+}
+
+.card3 {
+  width: 90%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.card3-image {
+  width: 90%;
+  height: 100%;
+}
+
+/* 
+.card3-container {
+  width: 50%;
+  height: 100%;
+  display: flex;
+}
+
+.card3 {
+  width: 90%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.card3-image {
+  width: 90%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+} */
+
