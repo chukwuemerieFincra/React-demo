@@ -1,0 +1,45 @@
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+}
+
+.status-scheduled {
+  background-color: #e0edff;
+  color: #2563a8;
+}
+
+.status-assigned {
+  background-color: #ffe5cc;
+  color: #b35a00;
+}
+
+.status-request {
+  background-color: #dde6ff;
+  color: #3b54b3;
+}
+
+.status-in-progress,
+.status-processing {
+  background-color: #f0e0ff;
+  color: #7a36c9;
+}
+
+.status-ready {
+  background-color: #d6f5e0;
+  color: #1d8a4a;
+}
+
+.status-completed {
+  background-color: #d6f5e0;
+  color: #1d8a4a;
+}
+
+.status-cancelled {
+  background-color: #ffd9d9;
+  color: #c0322d;
+}
