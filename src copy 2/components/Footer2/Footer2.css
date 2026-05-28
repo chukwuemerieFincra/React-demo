@@ -1,0 +1,113 @@
+.footer2-container {
+  display: flex;
+  flex-direction: column;
+  color: var(--secondary-color);
+  padding: 40px;
+  font-family: Arial, sans-serif;
+  width: 90%;
+  padding-bottom: 4rem;
+  background-color: var(--grey-color-tint-0);
+  .footer2Header-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 1rem;
+    .footer2-logo {
+      width: 50px;
+    }
+    h2 {
+      font-size: 1.8rem;
+    }
+  }
+  .footer2-right-container {
+    display: flex;
+    gap: 4rem;
+    .footer2Main-container {
+      max-width: 250px;
+      margin-right: 2rem;
+      span {
+        font-size: 1.2rem;
+        line-height: 1.8rem;
+      }
+    }
+    .footer2-section {
+      min-width: fit-content;
+      h3 {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+        padding-bottom: 5px;
+      }
+      .contact-info {
+        width: 19rem;
+      }
+      ul {
+        list-style: none;
+        li {
+          display: flex;
+          gap: 8px;
+          margin-bottom: 15px;
+          line-height: 1.5rem;
+          font-size: large;
+          .icon {
+            margin-right: 12px;
+            color: var(--primary-color);
+          }
+        }
+      }
+    }
+  }
+  .newsletter {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+    input {
+      width: 19rem;
+      padding: 10px;
+      border-radius: 6px;
+      border: solid var(--primary-color) 1px;
+    }
+    .btnSubscribe {
+      width: 8rem;
+      background-color: var(--primary-color);
+      color: var(--background-color);
+      padding: 15px 5px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      &:hover {
+        background-color: var(--primary-color);
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    .footer2-right-container {
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+  .footerWrap {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4rem;
+    margin-top: 8rem;
+    .border {
+      width: 70%;
+      height: 4px;
+      border-radius: 5px;
+      background-color: var(--primary-color-tone1);
+    }
+    .copy {
+      color: var(--secondary-color);
+      font-size: 17px;
+    }
+  }
+}
