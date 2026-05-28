@@ -1,0 +1,14 @@
+.card4 {
+  width: 90;
+  height: 100%;
+  /* background-color: brown; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card4-image{
+width:100%;
+/* object-fit: contain; */
+height:98%;
+border-radius: 20px;
+}

@@ -1,0 +1,73 @@
+.card5-container {
+  width: 45%;
+  height: 93%;
+  /* background-color: bisque; */
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 35px;
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+.card5-wrapper {
+  width: 87%;
+  height: 87%;
+  /* background-color: gold; */
+}
+.card5 {
+  width: 100%;
+  height: 100%;
+  /* background-color: blue; */
+}
+.card5-up {
+  width: 100%;
+  height: 30%;
+  gap: 0.5rem;
+  /* background-color: pink; */
+  display: flex;
+}
+.card5-up-left {
+  width: 21%;
+  height: 100%;
+  /* background-color: orange; */
+}
+.card5-up-left-image {
+  width: 100%;
+  height: 100%;
+}
+.card5-up-right {
+  width: 60%;
+  height: 100%;
+  /* background-color: aquamarine; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card5-up-right-image {
+  width: 100%;
+  height: 70%;
+}
+.card5-center {
+  width: 100%;
+  height: 50%;
+  /* background-color: red; */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.card5-center-p {
+  font-size: 25px;
+}
+.card5-down {
+  width: 100%;
+  height: 20%;
+  /* background-color: rgb(135, 107, 55); */
+}
+.card5-down1 {
+  width: 100%;
+  height: 1%;
+  background-color: rgb(126, 122, 122);
+  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); */
+}
