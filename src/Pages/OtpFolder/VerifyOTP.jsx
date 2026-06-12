@@ -17,26 +17,19 @@ import Progress from "/src/Components/AuthHr&FrComponent/ProgressBar/Progress";
 import { FaArrowLeft } from "react-icons/fa6";
 import { FaRegClock } from "react-icons/fa6";
 import ButtonOtp from "./ButtonOtp/ButtonOtp";
-// import { Flex, Input, Typography } from "antd";
-// const { Title } = Typography;
+import axios from "axios";
+import { toast } from "react-toastify";
+const baseURL = import.meta.env.VITE_BASE_URL?.trim();
+
 
 const VerifyOTP = () => {
-  // const onChange = (text) => {
-  //   console.log("onChange:", text);
-  // };
-  // const onInput = (value) => {
-  //   console.log("onInput:", value);
-  // };
-  // const sharedProps = {
-  //   onChange,
-  //   onInput,
-  // };
 
+  const [isLoading, setIsLoading] = useState(false);
   const nav = useNavigate();
   const { state } = useLocation();
   const email = state?.email || "thecurve22@gmail.com";
   const [otp, setOtp] = useState(new Array(6).fill(""));
-  const [timer, setTimer] = useState(180);
+  const [timer, setTimer] = useState(30);
   const inputRefs = useRef([]);
 
   const featureCards = [
@@ -83,13 +76,73 @@ const VerifyOTP = () => {
       inputRefs.current[index - 1].focus();
     }
   };
+  const verifyApi = async (otp) => {
+    if (!baseURL) {
+      toast.error("Services not Configured");
+      return null;
+    }
 
-  const handleSubmit = (e) => {
+    setIsLoading(true);
+    try {
+      const url = `${baseURL}/mother/verify`;
+      const response = await axios.post(url, {
+        email,
+        otp,
+      });
+      if (response?.status === 200) {
+        toast.success(
+          response?.data?.message || "OTP verification successful!",
+        );
+        return response;
+      }
+    } catch (error) {
+      toast.error(
+        error?.response?.data?.message ||
+          error.message ||
+          "OTP verification failed",
+      );
+      return null;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const code = otp.join("");
     if (code.length === 6) {
-      console.log("Verifying:", code);
-      nav("/login");
+      const response = await verifyApi(code);
+      if (response?.status === 200) {
+        nav("/login");
+      }
+    }
+  };
+  const resendOtpApi = async () => {
+    if (!baseURL) {
+      toast.error("Services not Configured");
+      return null;
+    }
+
+    setIsLoading(true);
+    try {
+      const url = `${baseURL}/mother/resend-otp`;
+      const response = await axios.post(url, {
+        email,
+      });
+      if (response?.status === 200) {
+        toast.success(
+          response?.data?.message || "OTP verification successful!",
+        );
+        return response;
+      }
+    } catch (error) {
+      toast.error(
+        error?.response?.data?.message ||
+          error.message ||
+          "OTP verification failed",
+      );
+      return null;
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -128,7 +181,7 @@ const VerifyOTP = () => {
               <LuLock size={16} />
               <p>
                 This code is used for <strong>account verification</strong>. It
-                expires in 10 minutes.
+                expires in 1 minutes.
               </p>
             </div>
 
@@ -166,9 +219,13 @@ const VerifyOTP = () => {
                     <button
                       type="button"
                       className="resend-btn"
-                      onClick={() => setTimer(180)}
+                      disabled={isLoading}
+                      onClick={() => {
+                        setTimer(60);
+                        resendOtpApi();
+                      }}
                     >
-                      Resend code
+                      {isLoading ? "Resending..." : "Resend code"}
                     </button>
                   )}
                 </span>
@@ -177,10 +234,19 @@ const VerifyOTP = () => {
               <button
                 type="submit"
                 className="verify-btn"
-                disabled={otp.join("").length !== 6}
+                disabled={isLoading || otp.join("").length !== 6}
               >
-                Verify Code
-                <GoShieldCheck size={18} />
+                {isLoading ? (
+                  <>
+                    <span className="otp-spinner" aria-hidden="true" />
+                    Verifying...
+                  </>
+                ) : (
+                  <>
+                    Verify Code
+                    <GoShieldCheck size={18} />
+                  </>
+                )}
               </button>
             </form>
           </div>

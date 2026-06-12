@@ -1,6 +1,6 @@
 import { GoShieldCheck } from "react-icons/go";
 import "./Css/HeroSection.css";
-import heroImg from "/src/assets/preg.png";
+import heroImg from "/src/assets/preg-about.png";
 
 const HeroSection = () => {
   return (
@@ -13,20 +13,24 @@ const HeroSection = () => {
         <div className="hero-left">
           <h1 className="hero-title">
             Supporting Mothers <br />
-            With Guidance, <br />
-            <span className="highlight">Preparedness</span>, and <br />
-            <span className="highlight-teal">Care</span>
+            With Guidance, <br /> Preparedness,
+            <span className="highlight-teal">
+              {" "}
+              and <br />
+              Care
+            </span>
           </h1>
           <p className="hero-desc">
             Because every pregnant woman deserves to feel informed, supported,
             and financially prepared — not just on delivery day, but every
             single day of the journey.
           </p>
-          <div className="hero-cta">
-            <button className="btn-primary">Start Your Journey</button>
-            <button className="btn-outline">Meet the Team</button>
+          <div className="hero-cta-btn">
+            <button className="btn-primary-hero">Start Your Journey</button>
+            <button className="btn-outline-hero">Meet the Team</button>
           </div>
         </div>
+
         <div className="hero-right">
           <div className="hero-image-wrapper">
             <img src={heroImg} alt="Pregnant mother" />

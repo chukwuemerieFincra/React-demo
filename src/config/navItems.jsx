@@ -6,6 +6,11 @@ import {
   FiBell,
   FiUser,
 } from "react-icons/fi";
+import { BiSearch } from "react-icons/bi";
+import { LuDownload } from "react-icons/lu";
+import { TbFileDescription } from "react-icons/tb";
+import { IoNotificationsOutline } from "react-icons/io5";
+import { IoSettingsOutline } from "react-icons/io5";
 
 export const motherNavItems = [
   {
@@ -41,17 +46,40 @@ export const motherNavItems = [
   },
 ];
 
+
+
+
 export const hospitalNavItems = [
   {
     path: "/dashboard/hospitalOverview",
-    label: "Hospital Overview",
+    label: "Dashboard Overview",
     icon: <FiGrid size={20} />,
     end: true,
   },
   {
-    path: "/dashboard/hospitalDashboard",
-    label: "Hospital Dashboard",
-    icon: <FiGrid size={20} />,
+    path: "/dashboard/verifyPatient",
+    label: "Verify Patient Funds",
+    icon:   <BiSearch size={25} />
+  },
+  {
+    path: "/dashboard/uploadedBills",
+    label: "Uploaded Bills",
+    icon:  <LuDownload size={20} />
+  },
+  {
+    path: "/dashboard/verificationHistory",
+    label: "Verification History",
+    icon:   <TbFileDescription size={20} />
+  },
+  {
+    path: "/dashboard/notificationsHospital ",
+    label: "Notifications Hospital ",
+    icon:   <IoNotificationsOutline size={20} />
+  },
+  {
+    path: "/dashboard/settingsHospital ",
+    label: "Settings",
+    icon:   <IoSettingsOutline size={20} />
   },
 ];
 

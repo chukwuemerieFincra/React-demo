@@ -17,13 +17,13 @@ const TeamSection = () => {
     },
     {
       id: 2,
-      name: "Abdulbaakky Tamiyu",
+      name: "Abdulbakky Tiamiyu",
       role: "Product Designer",
       img: img2,
     },
     {
       id: 3,
-      name: "Mariaigoretti Nneamaka Nnadi",
+      name: "Mariagoretti Nnaemeka",
       role: "Front End Developer",
       img: img5,
     },
@@ -50,7 +50,8 @@ const TeamSection = () => {
 
   return (
     <section className="team-section">
-      <span className="section-label center">
+      <div className="teamW-layout">
+        <span className="section-label center">
         THE PEOPLE BEHIND THE PLATFORM
       </span>
       <h2 className="section-title center">
@@ -58,8 +59,9 @@ const TeamSection = () => {
       </h2>
       <p className="section-desc center">
         We're a team of technologists, and builders who believe that access to
-        maternal support is not a privilege — it's a right.
+        maternal <br /> support is not a privilege — it's a right.
       </p>
+      </div>
       <div className="team-grid">
         {team.map((member) => (
           <div key={member.id} className="team-card">

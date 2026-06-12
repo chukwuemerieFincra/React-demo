@@ -1,19 +1,28 @@
 import  { useState } from "react";
-import { Outlet, NavLink } from "react-router-dom";
-import { FiX } from "react-icons/fi";
+import { Outlet, NavLink, useNavigate } from "react-router-dom";
+import { FiX, FiLogOut } from "react-icons/fi";
 import DashboardHeader from "../../Components/DashboardHeader/DashboardHeader";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import { useRole } from "../../context/RoleContext";
 import { getNavItems } from "../../config/navItems";
 import logo from "../../assets/header.png";
+
 import "./Dashboard.css";
 
 const Dashboard = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
-  const { role } = useRole();
+  const navigate = useNavigate();
+  const { role, setRole } = useRole();
   const navItems = getNavItems(role);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setRole("mother");
+    closeMobileMenu();
+    navigate("/login");
+  };
 
   return (
     <div className="dashboard-layout">
@@ -44,6 +53,15 @@ const Dashboard = () => {
               {item.label}
             </NavLink>
           ))}
+
+          <button
+            type="button"
+            className="mobile-drawer-logout"
+            onClick={handleLogout}
+          >
+            <FiLogOut size={18} />
+            <span>Logout</span>
+          </button>
         </nav>
       </aside>
 

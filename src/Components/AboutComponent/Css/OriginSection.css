@@ -1,5 +1,5 @@
 .origin-section {
-  padding: 60px 80px;
+  padding: 20px;
   /* background: #faf9f6; */
   background-color: var(--bg-tint);
 
@@ -10,12 +10,21 @@
   @media (max-width: 640px) {
     padding: 40px 20px;
   }
+  .section-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--primary-deep-teal);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    display: flex;
+    justify-content: center;
+  }
 
   .origin-content {
     display: grid;
     grid-template-columns: 1fr 1.2fr;
     gap: 60px;
-    max-width: 1200px;
+    max-width: 1230px;
     margin: 0 auto;
 
     @media (max-width: 968px) {

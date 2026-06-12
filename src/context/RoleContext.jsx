@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 
-const DEFAULT_ROLE = "mother"; // "mother" | "hospital"
+const DEFAULT_ROLE = "mother";
 
 const RoleContext = createContext({
   role: DEFAULT_ROLE,
