@@ -1,0 +1,74 @@
+.mission-section {
+  padding: 60px;
+  background: #c5e1a5;
+
+  @media (max-width: 1024px) {
+    padding: 48px 40px;
+  }
+
+  @media (max-width: 640px) {
+    padding: 40px 20px;
+  }
+
+  .section-center {
+    color: var(--primary-deep-teal);
+    display: flex;
+    justify-content: center;
+    font-weight: 500;
+  }
+
+  .mission-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    max-width: 1230px;
+    margin: 32px auto 0;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .mission-card {
+    background: var(--bg-cards);
+    border-radius: 16px;
+    padding: 35px;
+
+    .card-icon-sm {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: #A7C4A0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-deep-teal);
+      margin-bottom: 16px;
+    }
+
+    .card-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: var(--text-tint);
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .card-title {
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--text-hue);
+      line-height: 1.4;
+      margin: 0 0 16px 0;
+      margin-bottom: 50px;
+    }
+
+    .card-desc {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-tones);
+      margin: 0;
+    }
+  }
+}

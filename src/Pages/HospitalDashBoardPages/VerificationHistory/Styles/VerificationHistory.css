@@ -1,0 +1,383 @@
+.verification-history-container {
+  padding: 0;
+  background-color: transparent;
+  min-height: 100vh;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", sans-serif;
+  box-sizing: border-box;
+}
+
+.verification-history-container .header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.verification-history-container .header-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  max-width: none;
+  margin: 0;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.verification-history-container .header-content h1 {
+  display: block;
+  width: 100%;
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f5461;
+  margin: 0;
+  line-height: 1.2;
+  text-align: left;
+}
+
+.verification-history-container .header-content p {
+  display: block;
+  width: 100%;
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+  text-align: left;
+}
+
+.verification-history-container .header-buttons {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.verification-history-container .btn-filter,
+.verification-history-container .btn-export {
+  padding: 9px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.verification-history-container .btn-filter {
+  border-color: #d1d5db;
+  background-color: #ffffff;
+  color: #1f2937;
+}
+
+.verification-history-container .btn-filter:hover {
+  background-color: #f3f4f6;
+}
+
+.verification-history-container .btn-export {
+  background-color: #0f766e;
+  color: #ffffff;
+}
+
+.verification-history-container .btn-export:hover {
+  background-color: #0d5d63;
+}
+
+.verification-history-container .stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.verification-history-container .stat-card {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #eef2f1;
+  box-shadow: 0 1px 2px rgba(15, 84, 97, 0.04);
+}
+
+.verification-history-container .stat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.verification-history-container .stat-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.verification-history-container .stat-trend {
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.verification-history-container .trend-up {
+  color: #10b981;
+}
+
+.verification-history-container .trend-down {
+  color: #ef4444;
+}
+
+.verification-history-container .stat-value {
+  font-size: 26px;
+  font-weight: 700;
+  color: #0f5461;
+  margin-bottom: 4px;
+  line-height: 1.1;
+}
+
+.verification-history-container .stat-label {
+  font-size: 12px;
+  color: #6b7280;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.verification-history-container .filter-section {
+  background-color: #ffffff;
+  border: 1px solid #eef2f1;
+  padding: 16px;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.verification-history-container .filter-input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 9px 12px;
+  transition: border-color 0.15s ease;
+}
+
+.verification-history-container .filter-input:focus-within {
+  border-color: #0f766e;
+  background-color: #ffffff;
+}
+
+.verification-history-container .filter-input input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  color: #1f2937;
+}
+
+.verification-history-container .filter-input input::placeholder {
+  color: #9ca3af;
+}
+
+.verification-history-container .filter-icon {
+  color: #6b7280;
+}
+
+.verification-history-container .records-section {
+  background-color: #ffffff;
+  border: 1px solid #eef2f1;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.verification-history-container .records-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.verification-history-container .records-header h2 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f5461;
+  margin: 0;
+}
+
+.verification-history-container .see-all-link {
+  color: #0f766e;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.verification-history-container .see-all-link:hover {
+  color: #0d5d63;
+}
+
+.verification-history-container .records-table-wrap {
+  overflow-x: auto;
+}
+
+.verification-history-container .records-table {
+  width: 100%;
+  min-width: 920px;
+  border-collapse: collapse;
+}
+
+.verification-history-container .records-table thead {
+  background-color: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.verification-history-container .records-table th {
+  padding: 12px 14px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.verification-history-container .records-table td {
+  padding: 14px;
+  border-bottom: 1px solid #f1f5f4;
+  font-size: 13px;
+  color: #1f2937;
+  vertical-align: middle;
+}
+
+.verification-history-container .records-table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+.verification-history-container .records-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.verification-history-container .verification-id {
+  font-weight: 600;
+  color: #0f5461;
+  white-space: nowrap;
+}
+
+.verification-history-container .amount-cell {
+  font-weight: 600;
+  color: #0f5461;
+}
+
+.verification-history-container .status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.verification-history-container .status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.verification-history-container .status-approved {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+.verification-history-container .status-pending {
+  background-color: #fef3c7;
+  color: #b45309;
+}
+
+.verification-history-container .status-requires-review {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.verification-history-container .status-rejected {
+  background-color: #e5e7eb;
+  color: #4b5563;
+}
+
+.verification-history-container .actions-cell {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.verification-history-container .action-btn {
+  background-color: transparent;
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+  color: #6b7280;
+  transition: all 0.2s ease;
+  padding: 6px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.verification-history-container .action-btn:hover {
+  color: #0f766e;
+  border-color: #0f766e;
+  background-color: #f0fdfa;
+}
+
+@media (max-width: 1200px) {
+  .verification-history-container .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .verification-history-container .header-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .verification-history-container .header-buttons {
+    width: 100%;
+  }
+
+  .verification-history-container .btn-filter,
+  .verification-history-container .btn-export {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .verification-history-container .filter-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .verification-history-container .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}

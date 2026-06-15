@@ -1,0 +1,85 @@
+.principles-section {
+  padding: 60px;
+  /* background: #faf9f6; */
+
+  @media (max-width: 1024px) {
+    padding: 48px 40px;
+  }
+
+  @media (max-width: 640px) {
+    padding: 40px 20px;
+  }
+
+  .principles-content {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 80px;
+    max-width: 1230px;
+    margin: 0 auto;
+
+    @media (max-width: 968px) {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+  }
+  .section-titleHead {
+    font-size: 38px;
+    font-weight: 500;
+    color: var(--primary-deep-teal);
+    /* text-align: left; */
+    line-height: 1.1;
+  }
+
+  .principles-left {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    .section-desc {
+      max-width: 400px;
+      line-height: 1.6;
+    }
+  }
+
+  .principles-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+
+    @media (max-width: 640px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .principle-card {
+    background: var(--bg-cards);
+    border: 1px solid var(--grey-outline);
+    border-radius: 12px;
+    padding: 24px;
+
+    .card-icon-sm {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: #a7c4a0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-deep-teal);
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-hue);
+      margin: 0 0 12px 0;
+    }
+
+    .card-desc {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-tones);
+      margin: 0;
+    }
+  }
+}
