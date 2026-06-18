@@ -2,7 +2,7 @@ import React from "react";
 import { FiShield, FiCreditCard, FiSmartphone } from "react-icons/fi";
 import { BsBank } from "react-icons/bs";
 import { HiOutlineArrowRight } from "react-icons/hi";
-import "./Css/FundWalletForm.css";
+import "../AddFundCom/Css/FundWalletForm.css";
 
 const FundWalletForm = ({ amount, setAmount, paymentMethod, setPaymentMethod, walletData, onSubmit }) => {
   const quickAmounts = [5000, 10000, 20000, 50000];

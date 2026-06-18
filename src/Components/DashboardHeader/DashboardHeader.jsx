@@ -3,7 +3,7 @@ import "./DashboardHeader.css";
 import { FiBell, FiMenu } from "react-icons/fi";
 import { IoSettingsOutline } from "react-icons/io5";
 import { MdOutlinePeopleOutline } from "react-icons/md";
-import logo from "../../assets/header.png";
+import logo from "/src/assets/header.png";
 import { useNavigate } from "react-router-dom";
 import { useRole } from "../../context/RoleContext";
 
@@ -16,14 +16,6 @@ const DashboardHeader = ({ onMenuClick }) => {
       role === "hospital"
         ? "/dashboard/notificationsHospital"
         : "/dashboard/notifications";
-    navigate(targetRoute);
-  };
-
-  const handleSettingsClick = () => {
-    const targetRoute =
-      role === "hospital"
-        ? "/dashboard/settingsHospital"
-        : "/dashboard/settings";
     navigate(targetRoute);
   };
 
@@ -41,7 +33,7 @@ const DashboardHeader = ({ onMenuClick }) => {
       <div className="sidebar-logo">
         <img
           src={logo}
-          onClick={()=>navigate("/")}
+          onClick={() => navigate("/")}
           alt="MaternalPath"
           className="sidebar-logo-image"
         />
@@ -55,14 +47,6 @@ const DashboardHeader = ({ onMenuClick }) => {
         >
           <FiBell size={21} />
           <span className="dashboard-header-bell-dot" />
-        </button>
-
-        <button
-          className="header-icon-btn"
-          aria-label="Settings"
-          onClick={handleSettingsClick}
-        >
-          <IoSettingsOutline size={21} />
         </button>
 
         <button

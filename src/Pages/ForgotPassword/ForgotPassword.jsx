@@ -12,17 +12,41 @@ const baseURL = import.meta.env.VITE_BASE_URL?.trim();
 const ForgotPassword = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!baseURL) {
+      console.error("VITE_BASE_URL is not defined in .env");
+      toast.error("Server config error. Contact support.");
+      return;
+    }
+
+    if (!email) {
+      toast.error("Please enter your email");
+      return;
+    }
+
+    setIsLoading(true);
+    console.log("Calling:", `${baseURL}/mother/forgot-password`);
+
     try {
-      await axios.post(`${baseURL}/mother/forgot-password`, {
+      const res = await axios.post(`${baseURL}/mother/forgot-password`, {
         email,
       });
+
+      console.log("Success:", res.data);
       toast.success("Password reset link sent! Please check your email.");
       navigate("/checkEmail", { state: { email, role: "mother" } });
     } catch (error) {
       console.error("Forgot password error:", error);
+      console.error("Response:", error?.response?.data);
+      toast.error(
+        error?.response?.data?.message || "Failed to send reset link",
+      );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -62,12 +86,17 @@ const ForgotPassword = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   className="inputSpace"
+                  disabled={isLoading}
                 />
               </div>
             </div>
 
-            <button type="submit" className="btn-primary">
-              Send Reset Link
+            <button
+              type="submit"
+              className={`btn-primary ${isLoading ? "loading" : ""}`}
+              disabled={isLoading}
+            >
+              {isLoading ? "Sending..." : "Send Reset Link"}
             </button>
           </form>
 

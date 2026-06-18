@@ -74,7 +74,7 @@ const TermsContent = ({ onVisibleSectionChange }) => {
       <section
         id="disclaimer"
         ref={setRef("disclaimer")}
-        className="content-card highlight"
+        className="content-card"
       >
         <h3>2. Medical Disclaimer</h3>
         <ul>
@@ -241,15 +241,16 @@ const TermsContent = ({ onVisibleSectionChange }) => {
             type="checkbox"
             checked={agreed}
             onChange={(e) => setAgreed(e.target.checked)}
+            style={{accentColor: "#2e7d32"}}
           />
           <span>I have read and agree to the Terms & Conditions.</span>
         </label>
 
         <div className="action-buttons">
-          <button className="btn-primary" disabled={!agreed}>
+          <button className="btn-primary-terms" disabled={!agreed}>
             Accept & Continue
           </button>
-          <button className="btn-outline">
+          <button className="btn-outline-terms">
             <FiDownload />
             Download PDF
           </button>

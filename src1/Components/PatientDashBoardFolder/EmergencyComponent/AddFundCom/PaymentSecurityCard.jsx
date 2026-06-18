@@ -1,6 +1,6 @@
 import React from "react";
 import { FiShield, FiLock, FiCheck, FiHeart } from "react-icons/fi";
-import "./Css/PaymentSecurityCard.css";
+import "../AddFundCom/Css/PaymentSecurityCard.css";
 
 const PaymentSecurityCard = () => {
   const items = [

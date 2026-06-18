@@ -1,6 +1,6 @@
 import React from "react";
 import { FiHeart } from "react-icons/fi";
-import "./Css/SavingsSupportCard.css";
+import "../AddFundCom/Css/SavingsSupportCard.css";
 
 const SavingsSupportCard = () => {
   return (

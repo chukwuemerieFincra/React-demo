@@ -1,7 +1,7 @@
 import React from "react";
 import { BsGraphUpArrow } from "react-icons/bs";
 import { FiCheck } from "react-icons/fi";
-import "./Css/RecentTransactions.css";
+import "../AddFundCom/Css/RecentTransactions.css";
 
 const RecentTransactions = ({ transactions }) => {
   const formatCurrency = (num) => `₦${Number(num).toLocaleString()}`;

@@ -1,6 +1,6 @@
 import React from "react";
 import { FaWallet } from "react-icons/fa";
-import "./Css/WalletBalanceCard.css";
+import "../AddFundCom/Css/WalletBalanceCard.css";
 
 const WalletBalanceCard = ({ walletData }) => {
   const { currentBalance, savingsGoal } = walletData;
