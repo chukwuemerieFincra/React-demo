@@ -29,7 +29,7 @@ const ProfileHeaderCard = ({ data, onEditClick }) => {
         <div className="profile-left">
           <Avatar src={data?.profilePicture} size={32} />
           <div className="profile-info">
-            <h2 className="profile-name">{data?.firstName || ""}</h2>
+            <h2 className="profile-name">{data?.firstName || ""} {data?.lastName || ""}</h2>
             <div className="profile-meta">
               <span>{data?.week || "Week 24"}</span>
               <span className="dot">•</span>
@@ -65,12 +65,14 @@ const ProfileHeaderCard = ({ data, onEditClick }) => {
             <div className="detail-label">Estimated Due Date</div>
             <div className="detail-value">
               {data?.dueDate || "Not Set yet"}
+              {/* {data?.dueDate || "Not Set yet"} */}
             </div>
           </div>
           <div className="detail-item">
             <div className="detail-label">Preferred Hospital</div>
             <div className="detail-value">
               {data?.hospital || "Not Set yet"}
+              {/* {data?.hospital || "Not Set yet"} */}
             </div>
           </div>
         </div>

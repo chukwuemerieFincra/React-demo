@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FiCheckCircle,
   FiClock,
@@ -7,10 +7,12 @@ import {
   FiCalendar,
   FiFilter,
   FiDownload,
-  FiEye,
 } from "react-icons/fi";
-import { toast } from "react-toastify";
-import { getVerificationHistoryStats } from "../../../api/hospital";
+import { ToastContainer, toast } from "react-toastify";
+import {
+  getVerificationHistoryStats,
+  getVerificationRequests,
+} from "../../../api/hospital";
 import "./Styles/VerificationHistory.css";
 import RecentActivity from "./RecentActivity";
 import SecurityCompliance from "./SecurityCompliance";
@@ -47,6 +49,8 @@ const VerificationHistory = () => {
   const [dateRange, setDateRange] = useState("");
   const [stats, setStats] = useState(null);
   const [statsLoading, setStatsLoading] = useState(true);
+  const [verificationRecords, setVerificationRecords] = useState([]);
+  const [recordsLoading, setRecordsLoading] = useState(true);
 
   useEffect(() => {
     let isMounted = true;
@@ -57,8 +61,7 @@ const VerificationHistory = () => {
       .catch((error) => {
         console.error("Verification stats error:", error);
         toast.error(
-          error?.response?.data?.message ||
-            "Failed to load verification stats",
+          error?.response?.data?.message || "Failed to load verification stats",
         );
       })
       .finally(() => {
@@ -69,68 +72,148 @@ const VerificationHistory = () => {
     };
   }, []);
 
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchVerificationRequests = async () => {
+      try {
+        const data = await getVerificationRequests();
+        console.log("Verification requests:", data);
+
+        const requests = data?.data || data || [];
+        if (isMounted) setVerificationRecords(requests);
+      } catch (error) {
+        console.error("Error fetching verification requests:", error);
+        toast.error(
+          error?.response?.data?.message ||
+            "Failed to load verification requests",
+        );
+      } finally {
+        if (isMounted) setRecordsLoading(false);
+      }
+    };
+
+    fetchVerificationRequests();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   const formatValue = (value) =>
     typeof value === "number" ? value.toLocaleString() : "—";
 
-  const verificationRecords = [
-    {
-      id: "VER-2024-001",
-      patientName: "Sarah Johnson",
-      pregnancyWeek: "Week 36",
-      hospital: "Tolu Medical Hospital",
-      amount: "$4,500",
-      status: "Approved",
-      approvedBy: "Dr. Cassie Seyi",
-      date: "2024-05-20",
-    },
-    {
-      id: "VER-2024-002",
-      patientName: "Maria Garcia",
-      pregnancyWeek: "Week 32",
-      hospital: "Community Health Center",
-      amount: "$3,200",
-      status: "Pending",
-      approvedBy: "-",
-      date: "2024-05-21",
-    },
-    {
-      id: "VER-2024-003",
-      patientName: "Emily Chen",
-      pregnancyWeek: "Week 38",
-      hospital: "Augusta Memorial Hospital",
-      amount: "$5,100",
-      status: "Requires Review",
-      approvedBy: "-",
-      date: "2024-05-22",
-    },
-    {
-      id: "VER-2024-004",
-      patientName: "Jessica Brown",
-      pregnancyWeek: "Week 28",
-      hospital: "GoldenCross Specialist Hospital",
-      amount: "$2,800",
-      status: "Rejected",
-      approvedBy: "Dr. Michael Ozoro",
-      date: "2024-05-19",
-    },
-  ];
-
   const statusClass = (status) =>
-    `status-badge status-${status.toLowerCase().replace(/\s+/g, "-")}`;
+    `status-badge status-${status?.toLowerCase().replace(/\s+/g, "-") || "pending"}`;
+
+  const filteredRecords = verificationRecords.filter((record) => {
+    const matchesPatient =
+      searchPatient === "" ||
+      record.patientName?.toLowerCase().includes(searchPatient.toLowerCase()) ||
+      record.patient_name
+        ?.toLowerCase()
+        .includes(searchPatient.toLowerCase()) ||
+      record.id?.toLowerCase().includes(searchPatient.toLowerCase());
+
+    const matchesDate =
+      dateRange === "" ||
+      record.date?.includes(dateRange) ||
+      record.verificationDate?.includes(dateRange);
+
+    return matchesPatient && matchesDate;
+  });
+
+  const handleExportHistory = () => {
+    if (filteredRecords.length === 0) {
+      toast.warning("No records available to export.");
+      return;
+    }
+
+    try {
+      const headers = [
+        "Verification ID",
+        "Patient Name",
+        "Pregnancy Week",
+        "Preferred Hospital",
+        "Wallet Amount",
+        "Verification Status",
+        "Verification Date",
+      ];
+
+      const rows = filteredRecords.map((record) => [
+        record.verificationId || record.id || "",
+        record.patientName || record.patient_name || "",
+        record.pregnancyWeek || record.pregnancy_stage || "Week —",
+        record.preferredHospital || record.hospital || "",
+        record.amountRequested || record.amount || "",
+        record.authorizationStatus || record.status || "Pending",
+        record.verificationDate || record.date || "",
+      ]);
+
+      let csvContent = headers.join(",") + "\n";
+      rows.forEach((row) => {
+        const escapedRow = row.map((cell) => {
+          if (
+            typeof cell === "string" &&
+            (cell.includes(",") || cell.includes('"'))
+          ) {
+            return `"${cell.replace(/"/g, '""')}"`;
+          }
+          return cell;
+        });
+        csvContent += escapedRow.join(",") + "\n";
+      });
+
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const link = document.createElement("a");
+      const url = URL.createObjectURL(blob);
+      const date = new Date();
+      const dateStr = date.toISOString().split("T")[0];
+      link.setAttribute("href", url);
+      link.setAttribute("download", `Verification_History_${dateStr}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
+      toast.success(`Exported ${filteredRecords.length} records successfully!`);
+    } catch (error) {
+      console.error("Export error:", error);
+      toast.error("Failed to export records. Please try again.");
+    }
+  };
+
+  if (recordsLoading || statsLoading) {
+    return (
+      <div className="verification-history-container">
+        <div className="loading-state">
+          <div className="loading-spinner"></div>
+          <p>Loading verification history...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="verification-history-container">
+      <ToastContainer />
       <header className="header-section">
         <div className="header-content">
           <h1>Verification History</h1>
-          <p>Track maternal fund verification records and approval activities.</p>
+          <p>
+            Track maternal fund verification records and approval activities.
+          </p>
         </div>
         <div className="header-buttons">
           <button className="btn-filter" type="button">
             <FiFilter size={16} />
             Filter Verification
           </button>
-          <button className="btn-export" type="button">
+          <button
+            className="btn-export"
+            type="button"
+            onClick={handleExportHistory}
+          >
             <FiDownload size={16} />
             Export History
           </button>
@@ -161,7 +244,7 @@ const VerificationHistory = () => {
           <FiSearch size={16} className="filter-icon" />
           <input
             type="text"
-            placeholder="Search patient"
+            placeholder="Search by patient name or ID"
             value={searchPatient}
             onChange={(e) => setSearchPatient(e.target.value)}
           />
@@ -180,9 +263,6 @@ const VerificationHistory = () => {
       <section className="records-section">
         <div className="records-header">
           <h2>Verification Records</h2>
-          <a href="#" className="see-all-link">
-            See All
-          </a>
         </div>
 
         <div className="records-table-wrap">
@@ -195,43 +275,48 @@ const VerificationHistory = () => {
                 <th>Preferred Hospital</th>
                 <th>Wallet Amount</th>
                 <th>Verification Status</th>
-                <th>Approved By</th>
                 <th>Verification Date</th>
-                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {verificationRecords.map((record) => (
-                <tr key={record.id}>
-                  <td className="verification-id">{record.id}</td>
-                  <td>{record.patientName}</td>
-                  <td>{record.pregnancyWeek}</td>
-                  <td>{record.hospital}</td>
-                  <td className="amount-cell">{record.amount}</td>
-                  <td>
-                    <span className={statusClass(record.status)}>
-                      <span className="status-dot" />
-                      {record.status}
-                    </span>
-                  </td>
-                  <td>{record.approvedBy}</td>
-                  <td>{record.date}</td>
-                  <td>
-                    <div className="actions-cell">
-                      <button className="action-btn" title="View" type="button">
-                        <FiEye size={16} />
-                      </button>
-                      <button
-                        className="action-btn"
-                        title="Download"
-                        type="button"
+              {filteredRecords.length > 0 ? (
+                filteredRecords.map((record) => (
+                  <tr key={record.id}>
+                    <td className="verification-id">
+                      {record.verificationId || record.id}
+                    </td>
+                    <td>{record.patientName || record.patient_name}</td>
+                    <td>
+                      {record.pregnancyWeek ||
+                        record.pregnancy_stage ||
+                        "Week —"}
+                    </td>
+                    <td>{record.preferredHospital || record.hospital}</td>
+                    <td className="amount-cell">
+                      {record.amountRequested || record.amount}
+                    </td>
+                    <td>
+                      <span
+                        className={statusClass(
+                          record.authorizationStatus || record.status,
+                        )}
                       >
-                        <FiDownload size={16} />
-                      </button>
-                    </div>
+                        <span className="status-dot" />
+                        {record.authorizationStatus ||
+                          record.status ||
+                          "Pending"}
+                      </span>
+                    </td>
+                    <td>{record.verificationDate || record.date}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="7" className="no-records">
+                    No verification records found.
                   </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>

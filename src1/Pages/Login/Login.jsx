@@ -11,7 +11,7 @@ import {
 import { PiBaby } from "react-icons/pi";
 import { FcGoogle } from "react-icons/fc";
 import { GiHospital } from "react-icons/gi";
-import login from "../../assets/Login.png";
+import login from "/src/assets/Login.png";
 import { CiHeart } from "react-icons/ci";
 import "./login.css";
 import Header2 from "../../Components/Header2/Header2";
@@ -22,7 +22,7 @@ const baseURL = import.meta.env.VITE_BASE_URL?.trim();
 
 const LoginPage = () => {
   const nav = useNavigate();
-  const { role: defaultRole, setRole } = useRole();
+  const { role: defaultRole } = useRole();
   const [userType, setUserType] = useState(defaultRole);
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -87,6 +87,7 @@ const LoginPage = () => {
   };
 
   const loginApi = async () => {
+    console.log("loginApi started", { email: formData.email, userType });
     if (!baseURL) {
       toast.error("Login service is not configured");
       return null;
@@ -118,6 +119,7 @@ const LoginPage = () => {
   };
 
   const handleSubmit = async (e) => {
+    console.log("handleSubmit called");
     e.preventDefault();
     setTouched({ email: true, password: true });
 
@@ -128,6 +130,21 @@ const LoginPage = () => {
     const response = await loginApi();
     if (response?.status === 200) {
       localStorage.setItem("token", response?.data?.token);
+
+      const userId =
+        response?.data?.id ||
+        response?.data?.userId ||
+        response?.data?.user_id ||
+        response?.data?.data?.id ||
+        response?.data?.data?.userId ||
+        response?.data?.data?.user_id ||
+        "";
+
+      if (userId) {
+        localStorage.setItem("userid", String(userId));
+      } else {
+        console.warn("Login response did not include a user id:", response?.data);
+      }
 
       if (userType === "mother") {
         const isUpdated = Boolean(response?.data?.isUpdated);
@@ -162,20 +179,14 @@ const LoginPage = () => {
                 <button
                   type="button"
                   className={userType === "mother" ? "active" : ""}
-                  onClick={() => {
-                    setUserType("mother");
-                    setRole("mother");
-                  }}
+                  onClick={() => setUserType("mother")}
                 >
                   <PiBaby /> Pregnant Mother
                 </button>
                 <button
                   type="button"
                   className={userType === "hospital" ? "active" : ""}
-                  onClick={() => {
-                    setUserType("hospital");
-                    setRole("hospital");
-                  }}
+                  onClick={() => setUserType("hospital")}
                 >
                   <GiHospital /> Healthcare Professional
                 </button>
@@ -219,7 +230,7 @@ const LoginPage = () => {
                   <MdLock />
                   <input
                     type={showPassword ? "text" : "password"}
-                    placeholder="123456"
+                    placeholder="Password123"
                     value={formData.password}
                     onChange={(e) => handleChange("password", e.target.value)}
                     onBlur={() => handleBlur("password")}

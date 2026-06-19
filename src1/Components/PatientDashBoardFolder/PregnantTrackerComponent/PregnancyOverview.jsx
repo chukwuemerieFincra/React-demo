@@ -1,39 +1,71 @@
-import React, { useState } from "react";
+import React from "react";
 import { FiActivity, FiHeart, FiChevronRight } from "react-icons/fi";
 import "./Css/PregnancyOverview.css";
 import babyIllustration from "../../../assets/baby.png";
 
-const PregnancyOverview = () => {
+const TRIMESTER_NAMES = {
+  1: "First Trimester",
+  2: "Second Trimester",
+  3: "Third Trimester",
+};
+
+const TOTAL_WEEKS = 40;
+
+const formatDate = (iso) => {
+  if (!iso) return "";
+  const d = new Date(iso);
+  return Number.isNaN(d.getTime())
+    ? iso
+    : d.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+};
+
+const DEFAULT_SYMPTOMS = [
+  "Mild back discomfort",
+  "Increased energy levels",
+  "Occasional leg cramps",
+  "Improved sleep quality",
+];
+
+const DEFAULT_NUTRITION = [
+  "Iron-rich foods: Spinach, beans, lean meat",
+  "Calcium sources: Milk, yogurt, cheese",
+  "Whole grains: Brown rice, oats, millet",
+  "Hydrate with 8-10 glasses of water daily",
+];
+
+const DEFAULT_MOBILE_SYMPTOMS = [
+  "Increased energy levels typical for second trimester",
+  "Mild backaches as baby grows",
+  "Baby movements becoming more noticeable",
+  "Skin may develop pregnancy glow",
+];
+
+const PregnancyOverview = ({ overview }) => {
+  const info = overview?.info ?? {};
+  const week = info.week ?? 24;
+  const progressValue = parseFloat(info.pregnancyProgress);
+  const progress = Number.isFinite(progressValue)
+    ? progressValue
+    : Math.min(100, Math.round((week / TOTAL_WEEKS) * 100));
+
   const data = {
-    week: 24,
-    trimester: "Second Trimester",
-    dueDate: "September 18, 2026",
-    daysRemaining: 128,
-    babySize: "Size of a cantaloupe",
-    progress: 60,
-    totalWeeks: 40
+    week,
+    totalWeeks: TOTAL_WEEKS,
+    progress,
+    trimester: TRIMESTER_NAMES[Number(info.trimester)] ?? "—",
+    dueDate: formatDate(info.estimatedDueDate) || "—",
+    daysRemaining: info.daysUntilDueDate ?? "—",
+    babySize: info.babySize ?? "Size of a cantaloupe",
+    preferredHospital: info.preferredHospital ?? "—",
   };
 
-  const symptoms = [
-    "Mild back discomfort",
-    "Increased energy levels",
-    "Occasional leg cramps",
-    "Improved sleep quality"
-  ];
-
-  const nutrition = [
-    "Iron-rich foods: Spinach, beans, lean meat",
-    "Calcium sources: Milk, yogurt, cheese",
-    "Whole grains: Brown rice, oats, millet",
-    "Hydrate with 8-10 glasses of water daily"
-  ];
-
-  const mobileSymptoms = [
-    "Increased energy levels typical for second trimester",
-    "Mild backaches as baby grows",
-    "Baby movements becoming more noticeable",
-    "Skin may develop pregnancy glow"
-  ];
+  const symptoms = info.symptoms ?? DEFAULT_SYMPTOMS;
+  const nutrition = info.nutrition ?? DEFAULT_NUTRITION;
+  const mobileSymptoms = info.mobileSymptoms ?? DEFAULT_MOBILE_SYMPTOMS;
 
   return (
     <>
@@ -44,8 +76,10 @@ const PregnancyOverview = () => {
               <h2>Week {data.week}</h2>
               <span className="trimester">{data.trimester}</span>
             </div>
-            <p className="week-desc desktop-only">Your baby is growing steadily this week.</p>
-            <p className="week-desc mobile-only">{data.progress}% complete • {data.totalWeeks} weeks total</p>
+            <p className="week-desc desktop-only"></p>
+            <p className="week-desc mobile-only">
+              {data.progress}% complete • {data.totalWeeks} weeks total
+            </p>
 
             <div className="stats-grid desktop-only">
               <div className="stat">
@@ -69,11 +103,14 @@ const PregnancyOverview = () => {
             <div className="progress-section">
               <span className="progress-label desktop-only">Journey Timeline</span>
               <div className="progress-bar">
-                <div className="progress-fill" style={{ width: `${data.progress}%` }} />
+                <div
+                  className="progress-fill"
+                  style={{ width: `${data.progress}%` }}
+                />
               </div>
               <div className="progress-markers desktop-only">
-                <span>Week 1</span>
-                <span>Week {data.totalWeeks}</span>
+                <span>Week {data.week}</span>
+                <span>{data.progress}%</span>
               </div>
             </div>
 

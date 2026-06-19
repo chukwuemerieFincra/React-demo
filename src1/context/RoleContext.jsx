@@ -1,7 +1,8 @@
 import { createContext, useContext, useState } from "react";
 
-const DEFAULT_ROLE = "mother"; // "mother" | "hospital"
+const DEFAULT_ROLE = "mother";
 const ROLE_KEY = "role";
+const TOKEN_KEY = "token";
 
 const readRole = () => {
   const stored = localStorage.getItem(ROLE_KEY);
@@ -10,19 +11,35 @@ const readRole = () => {
 
 const RoleContext = createContext({
   role: DEFAULT_ROLE,
-  setRole: () => {},
+  token: null,
+  login: () => {},
+  logout: () => {},
 });
 
 export const RoleProvider = ({ children }) => {
-  const [role, setRoleState] = useState(readRole);
+  const [role, setRole] = useState(readRole);
+  const [token, setToken] = useState(() => localStorage.getItem(TOKEN_KEY));
 
-  const setRole = (next) => {
-    setRoleState(next);
-    localStorage.setItem(ROLE_KEY, next);
+  const login = (newToken, newRole) => {
+    localStorage.setItem(TOKEN_KEY, newToken);
+    localStorage.setItem(ROLE_KEY, newRole);
+    setToken(newToken);
+    setRole(newRole);
+  };
+
+  const logout = () => {
+    localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(ROLE_KEY);
+    localStorage.removeItem("isUpdated");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("userid");
+    localStorage.removeItem("name");
+    setToken(null);
+    setRole(DEFAULT_ROLE);
   };
 
   return (
-    <RoleContext.Provider value={{ role, setRole }}>
+    <RoleContext.Provider value={{ role, token, login, logout }}>
       {children}
     </RoleContext.Provider>
   );
